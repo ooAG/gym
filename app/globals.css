@@ -1,0 +1,1383 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+
+/* ==========================================================================
+   CSS Variables & AMOLED Dark Theme Settings
+   ========================================================================== */
+:root {
+  --bg-pure: #000000;
+  --bg-card: #0A0A0A;
+  --border-subtle: #1A1A1A;
+  --accent-primary: #00FF88;
+  --accent-secondary: #00D4FF;
+  --warning: #FF6B35;
+  --danger: #FF4757;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #888888;
+  --text-muted: #555555;
+  
+  --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --touch-target: 48px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+  
+  --transition-fast: 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background-color: var(--bg-pure);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  min-height: var(--touch-target);
+  transition: transform var(--transition-fast), background-color var(--transition-fast), opacity var(--transition-fast);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+input {
+  font-family: inherit;
+  outline: none;
+  border: none;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 16px;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Loading
+   ========================================================================== */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.loadingLogo {
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--accent-primary);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: celebrationPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid var(--border-subtle);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.loading p {
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 14px;
+  animation: pulse 2s infinite;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.appHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.logo span {
+  color: var(--accent-primary);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workoutNumber {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.streakBadge {
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--accent-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   Progress
+   ========================================================================== */
+.progressArea {
+  margin-bottom: 24px;
+}
+
+.progressText {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressTrack {
+  height: 6px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-pill);
+  transition: width 0.4s ease-out;
+}
+
+/* ==========================================================================
+   Location Gate
+   ========================================================================== */
+.locationGate {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.locationIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.locationStatus {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.locationDistance {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.locationBtn, .locationBtnPrimary, .locationBtnOverride {
+  width: 100%;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+.locationBtnPrimary {
+  background: var(--accent-primary);
+  color: var(--bg-pure);
+}
+
+.locationBtn {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.locationBtnOverride {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+}
+
+.locationError {
+  color: var(--danger);
+  font-size: 14px;
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.locationSuccess {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Warmup Section
+   ========================================================================== */
+.warmupSection {
+  margin-bottom: 32px;
+}
+
+.warmupTitle {
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.warmupCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.warmupInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.warmupName {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.warmupDuration, .warmupTimer {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.warmupTimerActive {
+  color: var(--accent-primary);
+  font-weight: 700;
+  animation: pulse 1s infinite alternate;
+}
+
+.warmupActions {
+  display: flex;
+  gap: 8px;
+}
+
+.warmupBtn {
+  padding: 0 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.warmupBtnSkip {
+  background: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.warmupBtnComplete {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--accent-primary);
+  border: 1px solid rgba(0, 255, 136, 0.2);
+}
+
+.warmupCompleted {
+  opacity: 0.5;
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.warmupSkipAll {
+  width: 100%;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  margin-top: 16px;
+}
+
+/* ==========================================================================
+   Workout Header
+   ========================================================================== */
+.workoutHeader {
+  margin-bottom: 24px;
+}
+
+.sessionTag {
+  display: inline-block;
+  background: rgba(0, 212, 255, 0.1);
+  color: var(--accent-secondary);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
+}
+
+.workoutHeader h1 {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.workoutHeader p {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.exerciseCounter {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--accent-primary);
+}
+
+.exerciseCounter small {
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.missedDays {
+  color: var(--warning);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: 8px;
+  background: rgba(255, 107, 53, 0.1);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   Last Performance
+   ========================================================================== */
+.lastPerformance {
+  background: linear-gradient(145deg, var(--bg-card), var(--bg-pure));
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.lastLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.lastContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.firstTime {
+  color: var(--accent-secondary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.comparisonGrid {
+  display: grid;
+  gap: 8px;
+}
+
+.comparisonSet {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-pure);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+}
+
+.comparisonSetNumber {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 12px;
+  width: 24px;
+}
+
+.comparisonValue {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+  flex: 1;
+}
+
+.comparisonUp { color: var(--accent-primary); font-weight: 700; font-size: 14px; }
+.comparisonDown { color: var(--danger); font-weight: 700; font-size: 14px; }
+.comparisonSame { color: var(--text-muted); font-weight: 700; font-size: 14px; }
+
+/* ==========================================================================
+   Target Card & Weight Control
+   ========================================================================== */
+.targetCard {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-secondary);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.targetCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-secondary);
+  box-shadow: 0 0 10px var(--accent-secondary);
+}
+
+.targetHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.targetArrow {
+  font-size: 18px;
+}
+
+.weightControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.weightDisplay {
+  text-align: center;
+}
+
+.weightDisplay strong {
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.weightDisplay span {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.weightHint {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.weightButtons {
+  display: flex;
+  width: 100%;
+  gap: 12px;
+}
+
+.weightBtn {
+  flex: 1;
+  background: var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  color: var(--text-primary);
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.weightBtnLabel {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   Sets & Swipeable Rows
+   ========================================================================== */
+.setCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.setHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.setLabel {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.setHeader strong {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.setHeader strong span {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.setTarget {
+  text-align: right;
+  font-size: 14px;
+  color: var(--accent-secondary);
+  font-weight: 600;
+}
+
+.setRowInner {
+  padding: 0;
+}
+
+.swipeRow {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.swipeRow:last-child {
+  border-bottom: none;
+}
+
+.swipeContent {
+  position: relative;
+  z-index: 2;
+  background: var(--bg-card);
+  padding: 20px 16px;
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.swipeBgComplete {
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 24px;
+  z-index: 1;
+}
+
+.swipeBgClear {
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 24px;
+  z-index: 1;
+}
+
+.swipeBgIcon {
+  color: var(--bg-pure);
+  font-weight: 900;
+  font-size: 20px;
+}
+
+.setCompleted .swipeContent {
+  background: rgba(0, 255, 136, 0.05);
+  border-left: 4px solid var(--accent-primary);
+}
+
+.setCompleted .swipeContent h3 {
+  color: var(--accent-primary);
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+/* ==========================================================================
+   Reps Control
+   ========================================================================== */
+.repsControl {
+  padding: 24px 16px;
+}
+
+.repsDisplay {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.repsValue {
+  font-size: 64px;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.repsUnit {
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.repsBtnGroup {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.repsBtn {
+  flex: 1;
+  background: var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+}
+
+.repsBtnLarge {
+  flex: 2;
+  background: var(--accent-primary);
+  color: var(--bg-pure);
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.quickReps {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.quickReps::-webkit-scrollbar {
+  display: none;
+}
+
+.quickRepBtn {
+  flex: 0 0 auto;
+  padding: 12px 20px;
+  background: var(--bg-pure);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+}
+
+.quickRepBtnActive {
+  background: var(--accent-primary);
+  color: var(--bg-pure);
+  border-color: var(--accent-primary);
+}
+
+/* ==========================================================================
+   RIR Selector Grid
+   ========================================================================== */
+.rirGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 24px;
+}
+
+.rirButton {
+  background: var(--bg-pure);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 12px 0;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.rirButton.selected {
+  background: var(--accent-secondary);
+  color: var(--bg-pure);
+  border-color: var(--accent-secondary);
+}
+
+/* ==========================================================================
+   Rest Timer Overlay
+   ========================================================================== */
+.restTimerOverlay {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border-subtle);
+  z-index: 100;
+  padding: 24px;
+  transform: translateY(0);
+  transition: transform var(--transition-fast);
+}
+
+.restTimerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.restTimerLabel {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.restTimerTime {
+  font-size: 56px;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 24px;
+}
+
+.restTimerUrgent .restTimerTime {
+  color: var(--warning);
+  animation: pulse 1s infinite alternate;
+}
+
+.restTimerProgress {
+  width: 100%;
+  height: 4px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.restTimerProgressFill {
+  height: 100%;
+  background: var(--accent-primary);
+  border-radius: var(--radius-pill);
+  transition: width 1s linear;
+}
+
+.restTimerUrgent .restTimerProgressFill {
+  background: var(--warning);
+}
+
+.restTimerButtons {
+  display: flex;
+  width: 100%;
+  gap: 16px;
+}
+
+.restTimerBtn {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+}
+
+.restTimerBtnSkip {
+  flex: 2;
+  background: var(--text-primary);
+  color: var(--bg-pure);
+}
+
+/* ==========================================================================
+   Exercise Navigation
+   ========================================================================== */
+.exerciseNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  margin-bottom: 32px;
+}
+
+.exerciseNavigation > button {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.exerciseNavigation > button:disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  transition: all var(--transition-fast);
+}
+
+.dot.active {
+  background: var(--text-primary);
+  transform: scale(1.5);
+}
+
+.dot.completed {
+  background: var(--accent-primary);
+}
+
+/* ==========================================================================
+   Exercise Manager Bottom Sheet
+   ========================================================================== */
+.managerOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 200;
+  display: flex;
+  align-items: flex-end;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.managerSheet {
+  background: var(--bg-card);
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  border-radius: 24px 24px 0 0;
+  padding: 24px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  border: 1px solid var(--border-subtle);
+  border-bottom: none;
+}
+
+.managerHandle {
+  width: 48px;
+  height: 4px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-pill);
+  margin: 0 auto 24px;
+}
+
+.managerTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.managerActions {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.managerActionBtn {
+  display: flex;
+  align-items: center;
+  background: var(--bg-pure);
+  border: 1px solid var(--border-subtle);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  text-align: left;
+}
+
+.managerActionIcon {
+  font-size: 20px;
+  margin-right: 16px;
+  color: var(--text-secondary);
+}
+
+.managerActionText {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.managerActionArrow {
+  color: var(--text-muted);
+}
+
+.managerActionDanger {
+  color: var(--danger);
+  border-color: rgba(255, 71, 87, 0.2);
+  background: rgba(255, 71, 87, 0.05);
+}
+
+.managerActionDanger .managerActionText,
+.managerActionDanger .managerActionIcon {
+  color: var(--danger);
+}
+
+.managerDivider {
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 24px 0;
+}
+
+.managerExerciseList {
+  display: grid;
+  gap: 12px;
+}
+
+.managerExerciseItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-pure);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.managerExerciseInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.managerExerciseName {
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.managerExerciseMeta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.managerExerciseBtn {
+  background: var(--accent-primary);
+  color: var(--bg-pure);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.managerClose {
+  width: 100%;
+  background: transparent;
+  color: var(--text-secondary);
+  font-weight: 700;
+  margin-top: 24px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+
+/* Add Exercise Form */
+.addExerciseForm { display: flex; flex-direction: column; gap: 16px; }
+.addExerciseInput, .addExerciseSelect {
+  background: var(--bg-pure);
+  color: var(--text-primary);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  font-size: 16px;
+  width: 100%;
+}
+.addExerciseRow { display: flex; gap: 16px; }
+.addExerciseSubmit {
+  background: var(--accent-primary);
+  color: var(--bg-pure);
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+}
+
+/* ==========================================================================
+   Performance Report
+   ========================================================================== */
+.reportScreen { padding-bottom: 40px; }
+.reportHeader { text-align: center; margin-bottom: 32px; }
+.reportIcon { font-size: 48px; margin-bottom: 16px; }
+.reportTag {
+  display: inline-block;
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--accent-primary);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.reportScreen h1 { font-size: 32px; font-weight: 900; margin-bottom: 8px; }
+.reportScreen > p { color: var(--text-secondary); font-size: 16px; }
+
+.reportStatsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.reportStat {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+}
+.reportStatLabel {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.reportStatValue { font-size: 28px; font-weight: 900; color: var(--text-primary); line-height: 1; }
+.reportStatUp { color: var(--accent-primary); font-size: 14px; font-weight: 700; margin-top: 8px; }
+.reportStatDown { color: var(--danger); font-size: 14px; font-weight: 700; margin-top: 8px; }
+
+.reportDivider { height: 1px; background: var(--border-subtle); margin: 32px 0; }
+.reportExercises { display: grid; gap: 16px; margin-bottom: 32px; }
+.reportExerciseCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+}
+.reportExerciseName { font-size: 18px; font-weight: 800; color: var(--text-primary); margin-bottom: 16px; }
+.reportExerciseSets { display: grid; gap: 8px; }
+.reportSetRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.reportSetRow:last-child { border-bottom: none; }
+.reportSetLabel { color: var(--text-muted); font-weight: 700; font-size: 12px; width: 30px; }
+.reportSetValue { color: var(--text-primary); font-weight: 700; flex: 1; text-align: right; }
+.reportSetPrev { color: var(--text-secondary); font-size: 12px; margin-right: 12px; }
+.reportSetDelta { width: 40px; text-align: right; font-weight: 800; }
+.reportDeltaUp { color: var(--accent-primary); }
+.reportDeltaDown { color: var(--danger); }
+.reportDeltaSame { color: var(--text-muted); }
+
+.report1rm {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.report1rmValue { font-size: 20px; font-weight: 900; color: var(--accent-secondary); }
+
+.reportVolumeBar { height: 8px; background: var(--border-subtle); border-radius: 4px; overflow: hidden; margin-top: 12px; }
+.reportVolumeFill { height: 100%; background: var(--accent-primary); border-radius: 4px; }
+
+/* ==========================================================================
+   Complete Screen (Post Workout Celebration)
+   ========================================================================== */
+.completeScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  animation: fadeIn 0.5s ease-out;
+}
+.completeIcon { font-size: 72px; margin-bottom: 24px; animation: celebrationPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.completeTag {
+  background: rgba(0, 255, 136, 0.1);
+  color: var(--accent-primary);
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+}
+.completeScreen h1 { font-size: 40px; font-weight: 900; margin-bottom: 12px; line-height: 1.1; }
+.completeScreen > p { color: var(--text-secondary); font-size: 18px; margin-bottom: 40px; }
+.completeStats {
+  display: flex;
+  gap: 24px;
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 48px;
+}
+.completeStats > div { display: flex; flex-direction: column; align-items: center; }
+.completeStats strong { font-size: 24px; font-weight: 900; color: var(--text-primary); }
+.completeStats span { font-size: 12px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-top: 4px; }
+
+/* ==========================================================================
+   Buttons & Compat
+   ========================================================================== */
+.primaryButton, .finishButton, .completeSetButton {
+  width: 100%;
+  background: var(--accent-primary);
+  color: var(--bg-pure);
+  font-weight: 800;
+  font-size: 16px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.finishButton:hover { opacity: 0.9; }
+.completeSetButton:active { transform: scale(0.96); background: #00e67a; }
+
+.roundButton {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  color: var(--text-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 20px;
+}
+.roundButton:active { background: var(--bg-card); transform: scale(0.9); }
+
+.bigInput {
+  background: var(--bg-pure);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+.bigInput:focus { border-color: var(--accent-primary); }
+.bigInput::placeholder { color: var(--border-subtle); }
+.inputLabel { font-size: 14px; color: var(--text-secondary); font-weight: 700; margin-bottom: 8px; display: block; }
+
+.restCard {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg); padding: 24px; text-align: center;
+  margin-bottom: 24px;
+}
+.restCard > div:first-child { font-size: 48px; font-weight: 900; color: var(--accent-secondary); margin-bottom: 16px; }
+.restCard span { color: var(--text-secondary); font-size: 14px; }
+.restCard strong { color: var(--text-primary); font-size: 16px; }
+.restButtons { display: flex; gap: 12px; margin-top: 24px; }
+.restButtons button { flex: 1; padding: 12px; border-radius: var(--radius-md); font-weight: 700; background: var(--border-subtle); color: var(--text-primary); }
+
+/* ==========================================================================
+   Notifications, Error, Empty State
+   ========================================================================== */
+.notifCard {
+  background: var(--bg-card); border: 1px solid var(--accent-secondary);
+  border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;
+  border-left: 4px solid var(--accent-secondary);
+}
+.notifCardTitle { font-weight: 800; color: var(--text-primary); margin-bottom: 8px; }
+.notifCardText { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; }
+.notifBtn { background: var(--accent-secondary); color: var(--bg-pure); font-weight: 700; padding: 8px 16px; border-radius: var(--radius-sm); }
+
+.errorBox {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 64px 24px; text-align: center;
+}
+.emptyIcon { font-size: 64px; color: var(--border-subtle); margin-bottom: 24px; }
+.empty h1 { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: var(--text-primary); }
+.empty p { color: var(--text-secondary); font-size: 14px; max-width: 240px; margin: 0 auto; }
+
+/* ==========================================================================
+   Animations
+   ========================================================================== */
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+@keyframes pulse { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(1.05); opacity: 0.8; } }
+@keyframes slideUp { 0% { transform: translateY(100%); } 100% { transform: translateY(0); } }
+@keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+@keyframes celebrationPop { 0% { transform: scale(0); } 60% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+/* ==========================================================================
+   Mobile @media
+   ========================================================================== */
+@media (max-width: 600px) {
+  .app { padding: 12px; }
+  .workoutHeader h1 { font-size: 24px; }
+  .weightDisplay strong { font-size: 40px; }
+  .repsValue { font-size: 56px; }
+  .restTimerTime { font-size: 48px; }
+  .reportStatValue { font-size: 24px; }
+  .completeScreen h1 { font-size: 32px; }
+  .managerSheet { padding: 16px; }
+}
+
+/* Additional utility styles */
+.locationChecking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.locationChecking::before {
+  content: '';
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-subtle);
+  border-top-color: var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.managerFormActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.setRowInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 20px;
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.setRowInner strong {
+  font-size: 20px;
+}
+
+.setRowInner span {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.warmupCard.completed {
+  opacity: 0.5;
+  border-color: rgba(0, 255, 136, 0.3);
+}
+
+.warmupCard.skipped {
+  opacity: 0.4;
+}

@@ -1,0 +1,139 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Workout Types (Push / Pull / Legs) ──────────────────
+
+model WorkoutType {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  order     Int        @unique
+  exercises Exercise[]
+  workouts  Workout[]
+}
+
+// ─── Exercises ───────────────────────────────────────────
+
+model Exercise {
+  id              Int             @id @default(autoincrement())
+  name            String
+  muscleGroup     String
+  equipment       String?
+  workoutTypeId   Int
+  sortOrder       Int
+  sets            Int             @default(3)
+  minReps         Int             @default(8)
+  maxReps         Int             @default(12)
+  weightIncrement Float           @default(2.5)
+  progressionType String          @default("DOUBLE_PROGRESSION")
+  active          Boolean         @default(true)
+
+  workoutType WorkoutType       @relation(fields: [workoutTypeId], references: [id])
+  logs        ExerciseLog[]
+  workouts    WorkoutExercise[]
+
+  @@index([workoutTypeId, sortOrder])
+}
+
+// ─── Workouts ────────────────────────────────────────────
+
+model Workout {
+  id               Int           @id @default(autoincrement())
+  workoutTypeId    Int
+  sequenceNo       Int
+  plannedDate      DateTime
+  startedAt        DateTime?
+  completedAt      DateTime?
+  status           String        @default("IN_PROGRESS")
+  startLocation    String?       // "lat,lng" at check-in
+  locationVerified Boolean       @default(false)
+
+  workoutType WorkoutType       @relation(fields: [workoutTypeId], references: [id])
+  logs        ExerciseLog[]
+  exercises   WorkoutExercise[]
+  warmupLogs  WarmupLog[]
+
+  @@index([status, completedAt])
+}
+
+// ─── Workout ↔ Exercise join ─────────────────────────────
+
+model WorkoutExercise {
+  id         Int     @id @default(autoincrement())
+  workoutId  Int
+  exerciseId Int
+  sortOrder  Int
+  skipped    Boolean @default(false)
+
+  workout  Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+
+  @@unique([workoutId, exerciseId])
+  @@index([workoutId, sortOrder])
+}
+
+// ─── Exercise Logs (individual sets) ─────────────────────
+
+model ExerciseLog {
+  id             Int     @id @default(autoincrement())
+  workoutId      Int
+  exerciseId     Int
+  setNumber      Int
+  weight         Float?
+  reps           Int
+  rir            Int?
+  completed      Boolean @default(true)
+  previousWeight Float?  // snapshot of last workout's weight for comparison
+  previousReps   Int?    // snapshot of last workout's reps for comparison
+
+  workout  Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+
+  @@index([exerciseId, workoutId])
+}
+
+// ─── Body Metrics ────────────────────────────────────────
+
+model BodyMetric {
+  id     Int      @id @default(autoincrement())
+  date   DateTime @default(now())
+  weight Float?
+  waist  Float?
+}
+
+// ─── Warmup ──────────────────────────────────────────────
+
+model WarmupActivity {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  duration  Int         @default(300) // default seconds
+  active    Boolean     @default(true)
+  sortOrder Int
+  logs      WarmupLog[]
+}
+
+model WarmupLog {
+  id         Int     @id @default(autoincrement())
+  workoutId  Int
+  activityId Int
+  duration   Int     // actual seconds performed
+  skipped    Boolean @default(false)
+
+  workout  Workout        @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  activity WarmupActivity @relation(fields: [activityId], references: [id])
+}
+
+// ─── Gym Locations ───────────────────────────────────────
+
+model GymLocation {
+  id        Int    @id @default(autoincrement())
+  name      String
+  latitude  Float
+  longitude Float
+  radius    Int    @default(100) // meters
+}
